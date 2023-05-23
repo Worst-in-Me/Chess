@@ -26,22 +26,30 @@ body {
 }
 
 .numbersColumn {
-    word-spacing: 51px;
-    writing-mode: vertical-lr;
-    text-orientation: upright;
+    display: flex;
+    flex-direction: column;
 
     color: white;
 }
 
+.num {
+    height: 37px;
+    text-align: center;
+}
+
 .lettersRow {
-    word-spacing: 62px;
+    display: flex;
+    flex-direction: row;
 
     color: white;
+}
+
+.letter {
+    width: 37px;
 }
 
 .chessBoard {
     border-collapse: collapse;
-    /* border: 4px solid black; */
 }
 
 .cell {
@@ -70,6 +78,14 @@ body {
         width: 50px;
         height: 50px;
     }
+
+    .num {
+        height: 52px;
+    }
+
+    .letter {
+        width: 52px;
+    }
 }
 @media (min-width: 780px) {
     .cell {
@@ -80,6 +96,14 @@ body {
     .blackCell {
         width: 65px;
         height: 65px;
+    }
+
+    .num {
+        height: 67px;
+    }
+
+    .letter {
+        width: 67px;
     }
 }
 @media (min-width: 1024px) {
@@ -92,6 +116,14 @@ body {
         width: 75px;
         height: 75px;
     }
+
+    .num {
+        height: 77px;
+    }
+
+    .letter {
+        width: 77px;
+    }
 }
 @media (min-width: 1280px) {
     .cell {
@@ -102,5 +134,13 @@ body {
     .blackCell {
         width: 80px;
         height: 80px;
+    }
+
+    .num {
+        height: 82px;
+    }
+
+    .letter {
+        width: 82px;
     }
 }

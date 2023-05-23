@@ -9,11 +9,14 @@ const createElem = (className, tagName, content) => {
 };
 
 const createChessBoard = (elem) => {
-    const letters = createElem('lettersRow', 'div', 'A B C D E F G H');
+    const letters = createElem('lettersRow', 'div');
+    for (let i = 0; i < 8; i++) letters.append(createElem('letter', 'div', String.fromCharCode(65 + i)));
 
     const drawBoard = () => {
         const chessBoard = createElem('chessBoard', 'table');
-        const numbers = createElem('numbersColumn', 'div', '8 7 6 5 4 3 2 1');
+
+        const numbers = createElem('numbersColumn', 'div');
+        for (let i = 0; i < 8; i++) numbers.append(createElem('num', 'div', i + 1));
 
         for (let i = 0; i < 8; i++) {
             if (i % 2 == 0) {
