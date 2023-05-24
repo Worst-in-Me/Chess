@@ -17,7 +17,7 @@ const drawLetters = () => {
 
 const drawNumbers = () => {
     const numbers = createElem('numbersColumn', 'div');
-    for (let i = 0; i < 8; i++) numbers.append(createElem('num', 'div', i + 1));
+    for (let i = 8; i != 0; i--) numbers.append(createElem('num', 'div', i));
 
     return numbers;
 };
