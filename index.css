@@ -5,6 +5,8 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: 'Courier New', Courier, monospace;
+
+    font-weight: bold;
 }
 
 .wrapper {
@@ -21,25 +23,39 @@ body {
 
 .container {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(118, 29, 29);
+}
+
+.chessContainer {
+    display: flex;
 }
 
 .numbersColumn {
     display: flex;
     flex-direction: column;
 
+    width: 20px;
     color: white;
 }
 
 .num {
     height: 37px;
     text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .lettersRow {
     display: flex;
     flex-direction: row;
+
+    text-align: center;
+    height: 20px;
 
     color: white;
 }

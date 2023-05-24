@@ -8,15 +8,25 @@ const createElem = (className, tagName, content) => {
     return elem;
 };
 
-const createChessBoard = (elem) => {
+const drawLetters = () => {
     const letters = createElem('lettersRow', 'div');
     for (let i = 0; i < 8; i++) letters.append(createElem('letter', 'div', String.fromCharCode(65 + i)));
 
+    return letters;
+};
+
+const drawNumbers = () => {
+    const numbers = createElem('numbersColumn', 'div');
+    for (let i = 0; i < 8; i++) numbers.append(createElem('num', 'div', i + 1));
+
+    return numbers;
+};
+
+const createChessBoard = (elem) => {
+    const container = createElem('container', 'div');
+
     const drawBoard = () => {
         const chessBoard = createElem('chessBoard', 'table');
-
-        const numbers = createElem('numbersColumn', 'div');
-        for (let i = 0; i < 8; i++) numbers.append(createElem('num', 'div', i + 1));
 
         for (let i = 0; i < 8; i++) {
             if (i % 2 == 0) {
@@ -51,14 +61,15 @@ const createChessBoard = (elem) => {
             }
         }
 
-        const container = createElem('container', 'div');
-        container.append(chessBoard, numbers);
+        const chessContainer = createElem('chessContainer', 'div');
+        chessContainer.append(drawNumbers(), chessBoard, drawNumbers());
 
-        return container;
+        return chessContainer;
     };
 
     const board = drawBoard();
-    elem.append(board, letters);
+    container.append(drawLetters(), board, drawLetters());
+    elem.appendChild(container);
 };
 
 createChessBoard(wrapper);
