@@ -1,9 +1,11 @@
 const wrapper = document.querySelector('.wrapper');
 
-const createElem = (className, tagName, content) => {
+const createElem = (className, tagName, content, attrs = {}) => {
     const elem = document.createElement(tagName);
     elem.classList.add(className);
     elem.textContent = content;
+
+    if (attrs) for (const [name, value] of Object.entries(attrs)) elem.setAttribute(name, value);
 
     return elem;
 };
@@ -29,39 +31,20 @@ const createChessBoard = (elem) => {
         const chessBoard = createElem('chessBoard', 'div');
 
         for (let i = 8; i != 0; i--) {
-            if (i % 2 == 0) {
-                const tr = createElem('tableRow', 'div');
+            const tr = createElem('tableRow', 'div');
 
-                for (let j = 0; j < 8; j++) {
-                    if (j % 2 !== 0) {
-                        const td = createElem('blackCell', 'div');
-                        td.classList.add(String.fromCharCode(65 + j) + i);
-                        tr.appendChild(td);
-                    } else {
-                        const td = createElem('cell', 'div');
-                        td.classList.add(String.fromCharCode(65 + j) + i);
-                        tr.appendChild(td);
-                    }
+            for (let j = 0; j < 8; j++) {
+                if (i % 2 == j % 2) {
+                    const td = createElem('cell', 'div');
+                    td.classList.add(String.fromCharCode(65 + j) + i);
+                    tr.appendChild(td);
+                } else {
+                    const td = createElem('blackCell', 'div');
+                    td.classList.add(String.fromCharCode(65 + j) + i);
+                    tr.appendChild(td);
                 }
-
-                chessBoard.appendChild(tr);
-            } else {
-                const tr = createElem('tableRow', 'div');
-
-                for (let j = 0; j < 8; j++) {
-                    if (j % 2 == 0) {
-                        const td = createElem('blackCell', 'div');
-                        td.classList.add(String.fromCharCode(65 + j) + i);
-                        tr.appendChild(td);
-                    } else {
-                        const td = createElem('cell', 'div');
-                        td.classList.add(String.fromCharCode(65 + j) + i);
-                        tr.appendChild(td);
-                    }
-                }
-
-                chessBoard.appendChild(tr);
             }
+            chessBoard.appendChild(tr);
         }
 
         const chessContainer = createElem('chessContainer', 'div');
