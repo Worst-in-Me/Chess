@@ -79,19 +79,31 @@ body {
 }
 
 .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 35px;
     height: 35px;
     background-color: rgb(255, 205, 124);
 
     text-align: right;
+    user-select: none;
 }
 
 .blackCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 35px;
     height: 35px;
     background-color: rgb(122, 87, 42);
 
     text-align: right;
+}
+
+.targetCell {
+    background-color: rgb(66, 255, 69);
 }
 
 @media (min-width: 540px) {

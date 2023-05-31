@@ -8,5 +8,3 @@ const knightCheck = (currCell, figureData) => {};
 const move = (currCell, nextCell, figureData) => {};
 
 const resetGame = (initPos) => {};
-
-export { pawnCheck, kingCheck, queenCheck, rookCheck, bishopCheck, knightCheck, move, resetGame };
