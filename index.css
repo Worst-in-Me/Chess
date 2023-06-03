@@ -92,18 +92,15 @@ body {
 }
 
 .blackCell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 35px;
-    height: 35px;
     background-color: rgb(122, 87, 42);
-
-    text-align: right;
 }
 
 .targetCell {
-    background-color: rgb(66, 255, 69);
+    background-color: rgba(66, 255, 69);
+}
+
+.targetFigure {
+    background-color: rgb(69, 168, 255);
 }
 
 @media (min-width: 540px) {
@@ -113,11 +110,6 @@ body {
     }
 
     .tableRow {
-        height: 50px;
-    }
-
-    .blackCell {
-        width: 50px;
         height: 50px;
     }
 
@@ -139,11 +131,6 @@ body {
         height: 65px;
     }
 
-    .blackCell {
-        width: 65px;
-        height: 65px;
-    }
-
     .num {
         height: 65px;
     }
@@ -162,11 +149,6 @@ body {
         height: 75px;
     }
 
-    .blackCell {
-        width: 75px;
-        height: 75px;
-    }
-
     .num {
         height: 75px;
     }
@@ -182,11 +164,6 @@ body {
     }
 
     .tableRow {
-        height: 80px;
-    }
-
-    .blackCell {
-        width: 80px;
         height: 80px;
     }
 

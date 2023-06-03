@@ -1,4 +1,3 @@
-const pawnCheck = (currCell, figureData) => {};
 const kingCheck = (currCell, figureData) => {};
 const queenCheck = (currCell, figureData) => {};
 const rookCheck = (currCell, figureData) => {};

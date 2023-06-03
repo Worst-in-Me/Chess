@@ -77,7 +77,50 @@ const initPos = {
     H7: ['p8b', true],
 };
 
+const posibleMoves = [];
+
+let pickedFigure = '';
+
 const currPos = { ...initPos };
+
+const clearPosibleMoves = () => {
+    posibleMoves.forEach((item) => {
+        const a = document.querySelector(`[cell=${item}]`);
+        console.log(a);
+
+        if (a.classList.contains('targetCell')) a.classList.remove('targetCell');
+    });
+
+    posibleMoves.length = 0;
+};
+
+const pawnCheck = (currCell, figureData) => {
+    const cell = currCell.getAttribute('cell').split('');
+    const hasFirstMove = figureData[1];
+    const colorFigure = figureData[0][2];
+
+    if (colorFigure === 'w') {
+        if (hasFirstMove) {
+            posibleMoves.push(cell[0] + (+cell[1] + 1));
+            posibleMoves.push(cell[0] + (+cell[1] + 2));
+        } else {
+            posibleMoves.push(cell[0] + (+cell[1] + 1));
+        }
+    } else {
+        if (hasFirstMove) {
+            posibleMoves.push(cell[0] + (+cell[1] - 1));
+            posibleMoves.push(cell[0] + (+cell[1] - 2));
+        } else {
+            posibleMoves.push(cell[0] + (+cell[1] - 1));
+        }
+    }
+
+    posibleMoves.forEach((item) => {
+        const a = document.querySelector(`[cell=${item}]`);
+        a.classList.toggle('targetCell');
+    });
+    console.log(posibleMoves);
+};
 
 const createElem = (className, tagName, content, attrs = {}) => {
     const elem = document.createElement(tagName);
@@ -113,7 +156,9 @@ const createChessBoard = (elem) => {
             const tr = createElem('tableRow', 'div');
 
             for (let j = 0; j < 8; j++) {
-                const td = createElem(`cell ${i % 2 == j % 2 ? '' : 'blackCell'}`, 'div');
+                const td = createElem(`cell ${i % 2 == j % 2 ? '' : 'blackCell'}`, 'div', '', {
+                    cell: String.fromCharCode(65 + j) + i,
+                });
                 const figure = initPos[String.fromCharCode(65 + j) + i];
 
                 if (figure) {
@@ -123,19 +168,40 @@ const createChessBoard = (elem) => {
                     td.appendChild(img);
                 }
 
-                td.classList.add(String.fromCharCode(65 + j) + i);
-
                 tr.appendChild(td);
             }
             chessBoard.appendChild(tr);
         }
 
         chessBoard.addEventListener('click', (event) => {
-            if (chessBoard.querySelector('.targetCell'))
-                chessBoard.querySelector('.targetCell').classList.toggle('targetCell');
+            // const targetFigure = chessBoard.querySelector('.targetFigure');
+            // if (targetFigure) targetFigure.classList.remove('targetFigure');
 
+            // const cell = event.target.closest('.cell');
+
+            // if (posibleMoves.length && !posibleMoves.includes(cell.getAttribute('cell'))) clearPosibleMoves();
+
+            // if (cell.hasChildNodes()) {
+            //     cell.classList.toggle('targetFigure');
+            //     pawnCheck(cell, currPos[cell.getAttribute('cell')]);
+            // }
             const cell = event.target.closest('.cell');
-            cell.classList.toggle('targetCell');
+            if (!pickedFigure) {
+                //добавить проверку чей ход
+                if (cell.hasChildNodes()) {
+                    cell.classList.add('targetFigure');
+                    pickedFigure = cell.getAttribute('cell');
+
+                    pawnCheck(cell, currPos[cell.getAttribute('cell')]);
+                }
+            } else {
+                // if (posibleMoves.includes(cell.getAttribute('cell'))) {}
+                const targetFigure = chessBoard.querySelector('.targetFigure');
+                if (targetFigure) targetFigure.classList.remove('targetFigure');
+
+                if (posibleMoves.length && !posibleMoves.includes(cell.getAttribute('cell'))) clearPosibleMoves();
+                pickedFigure = '';
+            }
         });
 
         const chessContainer = createElem('chessContainer', 'div');
