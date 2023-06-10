@@ -107,21 +107,10 @@ const pawnCheck = (currCell, figureData) => {
     const hasFirstMove = figureData[1];
     const colorFigure = figureData[0][2];
 
-    if (colorFigure === 'w') {
-        if (hasFirstMove) {
-            posibleMoves.push(cell[0] + (+cell[1] + 1));
-            posibleMoves.push(cell[0] + (+cell[1] + 2));
-        } else {
-            posibleMoves.push(cell[0] + (+cell[1] + 1));
-        }
-    } else {
-        if (hasFirstMove) {
-            posibleMoves.push(cell[0] + (+cell[1] - 1));
-            posibleMoves.push(cell[0] + (+cell[1] - 2));
-        } else {
-            posibleMoves.push(cell[0] + (+cell[1] - 1));
-        }
-    }
+    const diff = colorFigure === 'w' ? 1 : -1;
+
+    posibleMoves.push(cell[0] + (+cell[1] + 1 * diff));
+    if (hasFirstMove) posibleMoves.push(cell[0] + (+cell[1] + 2 * diff));
 
     posibleMoves.forEach((item) => {
         const a = document.querySelector(`[cell=${item}]`);
@@ -410,7 +399,7 @@ const createChessBoard = (elem) => {
             const tr = createElem('tableRow', 'div');
 
             for (let j = 0; j < 8; j++) {
-                const td = createElem(`cell ${i % 2 == j % 2 ? '' : 'blackCell'}`, 'div', '', {
+                const td = createElem('cell', 'div', '', {
                     cell: String.fromCharCode(65 + j) + i,
                     piece: '',
                 });
@@ -472,7 +461,21 @@ const createChessBoard = (elem) => {
             } else {
                 // if (posibleMoves.includes(cell.getAttribute('cell'))) {}
                 const targetFigure = chessBoard.querySelector('.targetFigure');
+                const targetCell = cell;
+                // console.log(targetCell);
                 if (targetFigure) targetFigure.classList.remove('targetFigure');
+
+                if (targetCell.classList.contains('targetCell')) {
+                    targetCell.setAttribute('piece', targetFigure.getAttribute('piece'));
+
+                    targetFigure.removeAttribute('piece');
+                    targetCell.append(targetFigure.firstChild);
+
+                    currPos[targetCell.getAttribute('cell')] = [currPos[targetFigure.getAttribute('cell')][0]];
+                    delete currPos[targetFigure.getAttribute('cell')];
+
+                    clearPosibleMoves();
+                }
 
                 if (posibleMoves.length && !posibleMoves.includes(cell.getAttribute('cell'))) clearPosibleMoves();
                 pickedFigure = '';
